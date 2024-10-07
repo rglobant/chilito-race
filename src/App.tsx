@@ -1,16 +1,36 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import Login from "./components/auth/Login";
+import ProtectedRoute from "./components/alternateRoutes/ProtectedRoute";
+import Dashboard from "./components/dashboard/dashboard";
+
+
+import { RootState } from "./store";
+
 import "./App.css";
-import Login from "./components/Login";
+import NotFound from "./components/alternateRoutes/NotFound";
 
 function App() {
-  return (
-    // <div className="h-screen flex justify-center items-center bg-gray-100">
-    //   <h1 className="text-3xl font-bold text-blue-500">Hello World!</h1>
-    // </div>
+  const isAuthenticated = useSelector((state: RootState) => !!state.auth.user);
 
-    <>
-    <Login />
-    </>
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+         <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 }
 
