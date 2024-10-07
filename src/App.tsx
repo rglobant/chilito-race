@@ -1,12 +1,11 @@
-import React from 'react';
-import './App.css';
-import Counter from './components/Counter';
+import React from "react";
+import "./App.css";
 
 function App() {
   return (
-    <>
-     <Counter/>
-    </>
+    <div className="h-screen flex justify-center items-center bg-gray-100">
+      <h1 className="text-3xl font-bold text-blue-500">Hello World!</h1>
+    </div>
   );
 }
 
